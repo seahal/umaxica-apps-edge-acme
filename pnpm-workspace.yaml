@@ -132,7 +132,7 @@ catalog:
   # or type rule that fires in CI and not on a developer's machine is worse than
   # the rule being off. oxlint and oxlint-tsgolint in particular have to move
   # together — tsgolint is the type-aware backend oxlint shells out to.
-  oxfmt: ^0.75.0
+  oxfmt: ^0.76.0
   oxlint: 1.90.0
   oxlint-tsgolint: ^7.0.2005
   react: ^19.3.1
