@@ -1,5 +1,5 @@
 {
-  "name": "umaxica-apps-edge",
+  "name": "umaxica-apps-edge-zenith",
   // Two TRACKED files, both required on a fresh `git clone`: `../compose.yaml`
   // carries the shared services, and `./compose.yaml` defines `core`, the
   // workspace container. `core` lives there rather than in `../compose.yaml`

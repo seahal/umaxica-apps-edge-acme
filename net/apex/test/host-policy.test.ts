@@ -33,8 +33,8 @@ describe('apex Host policy', () => {
     for (const host of [
       'umaxica.example',
       `${APEX_PUBLIC_HOST}.evil.example`,
-      `umaxica-apps-edge-other-apex.account.workers.dev`,
-      `umaxica-apps-edge-other-${APEX_WORKER_NAME}.account.workers.dev`,
+      `umaxica-apps-edge-zenith-other-apex.account.workers.dev`,
+      `umaxica-apps-edge-zenith-other-${APEX_WORKER_NAME}.account.workers.dev`,
       'workers.dev',
       'account.workers.dev',
       '',

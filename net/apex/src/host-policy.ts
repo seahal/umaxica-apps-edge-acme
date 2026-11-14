@@ -6,7 +6,7 @@ import { BRAND_TLD } from './brand';
  * source; keeping the derivation here avoids a second cross-unit host table.
  */
 export const APEX_PUBLIC_HOST = `umaxica.${BRAND_TLD.toLowerCase()}`;
-export const APEX_WORKER_NAME = `umaxica-apps-edge-${BRAND_TLD.toLowerCase()}-apex`;
+export const APEX_WORKER_NAME = `umaxica-apps-edge-zenith-${BRAND_TLD.toLowerCase()}-apex`;
 export const APEX_PUBLIC_ORIGIN = `https://${APEX_PUBLIC_HOST}`;
 
 // The account label is intentionally a fixture-shaped value for tests. The

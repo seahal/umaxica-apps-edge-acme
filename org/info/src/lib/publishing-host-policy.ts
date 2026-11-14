@@ -5,7 +5,7 @@ import { PUBLISHING_AUDIENCE, PUBLISHING_SURFACE } from './publishing-cell';
 const PUBLIC_HOSTS = new Set(
   Object.values(CANONICAL_ORIGINS).map((origin) => new URL(origin).hostname),
 );
-export const PUBLIC_WORKER_NAME = `umaxica-apps-edge-${PUBLISHING_AUDIENCE}-${PUBLISHING_SURFACE}`;
+export const PUBLIC_WORKER_NAME = `umaxica-apps-edge-zenith-${PUBLISHING_AUDIENCE}-${PUBLISHING_SURFACE}`;
 export const PUBLIC_PREVIEW_HOST = `${PUBLIC_WORKER_NAME}.account.workers.dev`;
 const PREVIEW_HOST_PATTERN = new RegExp(
   `^(?:[a-z0-9]+-)?${PUBLIC_WORKER_NAME}[.][a-z0-9-]+[.]workers[.]dev$`,

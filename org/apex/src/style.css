@@ -108,16 +108,18 @@
   --leading-heading: 1.3;
 }
 
-:root {
-  --ui-tint: var(--color-green-500);
-  --ui-canvas: color-mix(in oklab, var(--color-white) 85%, var(--ui-tint));
-}
-
 @theme inline {
   --color-canvas: var(--ui-canvas);
 }
 
 @layer base {
+  /* Keep canvas defaults in the same layer as the dark overrides below.
+     Unlayered defaults would outrank dark mode and leave a light canvas. */
+  :root {
+    --ui-tint: var(--color-green-500);
+    --ui-canvas: color-mix(in oklab, var(--color-white) 85%, var(--ui-tint));
+  }
+
   /*
    * `color-scheme` is what makes the UA's own surfaces — form controls, the
    * scrollbar, `<input>` autofill — follow the document. It cannot be a

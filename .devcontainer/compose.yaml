@@ -15,7 +15,7 @@
 # directory: Compose resolves them against the project directory, which is the
 # directory holding the FIRST `-f` file, and `devcontainer.json` lists
 # `../compose.yaml` first. This file is therefore not usable on its own.
-name: umaxica-apps-edge
+name: umaxica-apps-edge-zenith
 
 services:
   # The workspace container. Every dev server the twenty units define is started
@@ -50,7 +50,7 @@ services:
       # The tailnet node's identity, for the interactive `tailscale up` the image
       # ships a wrapper for. Surviving a container recreate is the whole point:
       # without it every start registers a NEW node and the tailnet name drifts
-      # to umaxica-edge-core-1, -2, ... `down --volumes` destroys it and the next
+      # to umaxica-apps-edge-zenith-core-1, -2, ... `down --volumes` destroys it and the next
       # `tailscale up` enrols afresh.
       - type: volume
         source: tailscale-state

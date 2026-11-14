@@ -32,7 +32,7 @@ describe('publishing Host policy', () => {
   it('does not widen the allowlist to sibling, malformed or arbitrary hosts', () => {
     for (const hostname of [
       'other-worker.account.workers.dev',
-      `umaxica-apps-edge-other-${PUBLIC_WORKER_NAME}.account.workers.dev`,
+      `umaxica-apps-edge-zenith-other-${PUBLIC_WORKER_NAME}.account.workers.dev`,
       'workers.dev',
       'docs.umaxica.attacker.example',
       `${PUBLIC_PREVIEW_HOST}.evil.example`,

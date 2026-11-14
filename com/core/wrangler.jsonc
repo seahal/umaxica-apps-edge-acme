@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "umaxica-apps-edge-com-core",
+  "name": "umaxica-apps-edge-zenith-com-core",
   "main": "./src/worker.ts",
   "workers_dev": true,
   "compatibility_date": "2026-10-06",

@@ -150,7 +150,7 @@ describe('Edge-owned tunnel connector', () => {
     // `compose.yaml` and `scripts/dev-start` — a second volume set, and a port
     // clash with the containers `--remove-existing-container` then fails to
     // find. The example shows the right value.
-    expect(composeOverrideExample).toMatch(/^name: umaxica-apps-edge$/mu);
+    expect(composeOverrideExample).toMatch(/^name: umaxica-apps-edge-zenith$/mu);
     expect(devcontainer).toContain('"runServices": ["core", "cloudflare-tunnel"]');
   });
 

@@ -219,6 +219,14 @@ against real traffic rather than a measured number, and limits are enforced _per
 Cloudflare location_, so a client's effective ceiling is the value times the
 number of locations it reaches.
 
+**Apex amendment (2026-11-14).** The five Hono apex units now use the constant
+`no-ip` fallback when the client IP is absent or empty. A caller can choose an
+unbounded number of pathnames, so per-path keys allow fresh budgets on demand.
+Unattributable callers share a conservative budget; one caller can exhaust it
+for the others. This tradeoff applies only when a limiter is bound and no client
+IP is available. Normal IP-based keys are unchanged. The older per-path policy
+below still describes the TanStack units, which are outside this change.
+
 **The no-IP fallback is per-path, not shared.** The key was
 `cf-connecting-ip || 'unknown'`, which put every request lacking that header into
 one bucket. Cloudflare sets the header on everything it forwards, so this was

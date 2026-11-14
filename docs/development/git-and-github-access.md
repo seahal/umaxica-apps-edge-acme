@@ -1,6 +1,6 @@
 # Git and GitHub access
 
-The authoritative repository is `git@github.com:seahal/umaxica-apps-edge.git`.
+The authoritative repository is `git@github.com:seahal/umaxica-apps-edge-zenith.git`.
 
 The container reuses the **host's** GitHub identity, borrowed rather than copied. Nothing
 is registered inside `core`, and no key file or token literal exists in this repository or

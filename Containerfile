@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Keep these runtime pins aligned with package.json and the documented Edge baseline.
-ARG NODE_VERSION=24.21.0-trixie
+ARG NODE_VERSION=26.13.1-trixie
 ARG PNPM_VERSION=12.11.2
 ARG CLAUDE_CODE_VERSION=2.1.220
 ARG CODEX_VERSION=0.147.0
