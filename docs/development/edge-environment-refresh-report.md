@@ -29,7 +29,7 @@ consumed it; Rails and its database are owned outside this repository.
 - VS Code settings bypassed extension-signature and Claude permission checks.
 - Rails clients silently fell back from a missing Workers binding to an Access hostname.
 - Playwright exercised a tutorial website instead of Edge endpoints.
-- The origin still names the obsolete singular repository (`umaxica-app-edge`).
+- The origin still names the obsolete singular repository (`umaxica-apps-edge-zenith`).
 
 ## Changes made
 
@@ -127,11 +127,11 @@ blocked.
 ## External handoffs and remaining risks
 
 The checkout identity is the expected working tree, but `.git/config` is read-only in this
-sandbox. The current origin remains `https://github.com/seahal/umaxica-app-edge`; normalize it
+sandbox. The current origin remains `https://github.com/seahal/umaxica-apps-edge-zenith`; normalize it
 on the host without changing other Git configuration:
 
 ```bash
-git remote set-url origin https://github.com/seahal/umaxica-apps-edge.git
+git remote set-url origin https://github.com/seahal/umaxica-apps-edge-zenith.git
 ```
 
 Then perform the ordered host verification in

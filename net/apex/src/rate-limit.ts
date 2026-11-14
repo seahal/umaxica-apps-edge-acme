@@ -32,20 +32,10 @@ export function rateLimitedResponse(request: Request, language?: string): Respon
 }
 
 /*
- * The bucket a request with no `CF-Connecting-IP` counts against.
- *
- * Cloudflare sets that header on every request it forwards, so in production
- * this fallback is unreachable. It is reachable in `vite dev`, in `vite preview`
- * and on any future path that reaches this Worker without going through the
- * edge — and the previous spelling, `|| 'unknown'`, put every such request into
- * ONE shared bucket. A shared bucket is both a bypass (many clients sharing one
- * budget is only a restriction if they are the same client) and a denial of
- * service against everyone else in it: one caller can spend the whole budget and
- * lock out every other unattributable request.
- *
- * Keying by pathname instead keeps the fallback per-path rather than global. It
- * is deliberately NOT a fallthrough that skips the limiter: an unattributable
- * request is still counted, just not counted together with unrelated ones.
+ * Missing client identity uses one bounded fallback bucket. A pathname is
+ * attacker-controlled: using it as a key lets a caller obtain a fresh budget
+ * for every random URL, including URLs that only produce a 404.
+ * Unattributable callers deliberately share a conservative limit.
  */
 function rateLimitKey(request: Request): string {
   const ip = request.headers.get('cf-connecting-ip');
@@ -53,7 +43,7 @@ function rateLimitKey(request: Request): string {
     return ip;
   }
 
-  return `no-ip:${new URL(request.url).pathname}`;
+  return 'no-ip';
 }
 
 /**

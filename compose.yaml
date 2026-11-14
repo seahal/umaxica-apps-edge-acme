@@ -32,7 +32,7 @@
 # `.devcontainer/compose.yaml`, `scripts/dev-start` and a bare `podman compose`
 # all resolve to this same name, so they share one set of containers and volumes.
 # An override must repeat it.
-name: umaxica-apps-edge
+name: umaxica-apps-edge-zenith
 
 # The twenty dev servers, one Compose service per workspace unit, WITHOUT the
 # Dev Container.

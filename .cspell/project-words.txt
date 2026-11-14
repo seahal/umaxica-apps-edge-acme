@@ -154,3 +154,4 @@ HSTS        # RFC 6797 HTTP Strict Transport Security, set in every _headers
 zizmor      # GitHub Actions static analyser (the `zizmor` job)
 pipx        # runs zizmor from PyPI on ubuntu-slim
 xper
+unlayered   # CSS cascade term: rules outside any @layer

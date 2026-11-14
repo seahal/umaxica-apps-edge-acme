@@ -1,6 +1,6 @@
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/seahal/umaxica-apps-edge/main)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/seahal/umaxica-apps-edge-zenith/main)
 
-# Umaxica App (EDGE)
+# Umaxica Apps Edge Zenith
 
 （ ＾ν＾） Hello, World!
 
@@ -28,9 +28,9 @@ Sibling repositories split out of this one:
 
 ## Prerequisites
 
-- Node.js 24.21.0 — Active LTS "Krypton" (declared in
+- Node.js 26.13.1 — Active LTS "Lithium" (declared in
   `package.json#devEngines.runtime`, matched by `Containerfile` as
-  `node:24.21.0-trixie`)
+  `node:26.13.1-trixie`)
 - [pnpm](https://pnpm.io/) 12.11.2 (declared in
   `package.json#devEngines.packageManager`, matched by `Containerfile`) — the
   ONLY package manager; `pnpm-lock.yaml` is the only lockfile and
@@ -86,7 +86,7 @@ Cloudflare object currently owns them (last verified: a Tunnel Public Hostname,
 ADR 024) until an operator moves them, per ADR 027.
 
 One deliberate outlier lives outside the workspace list: `all/busy` is a
-dependency-free static maintenance Worker (`umaxica-apps-edge-all-busy`) with a
+dependency-free static maintenance Worker (`umaxica-apps-edge-zenith-all-busy`) with a
 hand-written `src/index.js` and `public/` — no build step, no package.json, not
 part of the pnpm workspace or the script contract.
 
@@ -195,7 +195,7 @@ workspace file also enforces supply-chain policy: `minimumReleaseAge: 1440`
 
 ```jsonc
 "devEngines": {
-  "runtime":        { "name": "node", "version": "24.21.0", "onFail": "warn" },
+  "runtime":        { "name": "node", "version": "26.13.1", "onFail": "warn" },
   "packageManager": { "name": "pnpm", "version": "12.11.2", "onFail": "download" }
 }
 ```
@@ -226,7 +226,7 @@ together; the test tells you when you have edited only one.
 The development environment is started with the Dev Containers CLI over
 rootless Podman.
 
-- **Base image**: `node:24.21.0-trixie` from `Containerfile`, with pnpm 12.11.2
+- **Base image**: `node:26.13.1-trixie` from `Containerfile`, with pnpm 12.11.2
   pre-installed via the standalone script documented at
   <https://pnpm.io/installation>. Both are pinned to exact versions so a
   rebuild reproduces the same toolchain, and both match the sibling Rails repo
@@ -259,8 +259,8 @@ Start the Dev Container straight from a fresh clone — no local file has to be
 created first:
 
 ```bash
-git clone https://github.com/seahal/umaxica-apps-edge.git
-cd umaxica-apps-edge
+git clone https://github.com/seahal/umaxica-apps-edge-zenith.git
+cd umaxica-apps-edge-zenith
 docker compose config    # or: podman compose config -- resolves as-is
 
 scripts/devcontainer-up
@@ -348,7 +348,7 @@ To create one:
 cp compose.override.yaml.example compose.override.yaml   # optional
 ```
 
-Keep the `name: umaxica-apps-edge` line: Compose takes the project name from the
+Keep the `name: umaxica-apps-edge-zenith` line: Compose takes the project name from the
 last file that sets one, so a divergent value forks the project into a second
 set of containers and volumes.
 
@@ -405,7 +405,7 @@ pseudo-terminal:
 
 ```bash
 podman compose exec core bash -l
-podman exec -it umaxica-apps-edge-core-1 bash -l
+podman exec -it umaxica-apps-edge-zenith-core-1 bash -l
 ```
 
 `devcontainer exec` is for **one-shot commands only**. It wires stdin to a
@@ -613,6 +613,34 @@ Notes:
   it in place when adding a workspace, and substitute the workspace path in
   both commands above. Watch the build configuration's root directory too — a
   one-letter typo there has broken every build on a branch before.
+
+### Zenith GitHub continuous deployment
+
+Each apex unit `<tld>/apex` (`app`, `com`, `org`, `net`, `dev`) deploys to the
+Cloudflare Worker `umaxica-apps-edge-zenith-<tld>`, set by `name` in
+`<tld>/apex/wrangler.jsonc`. Workspace package names keep their `-apex` suffix;
+package identity is independent of Worker identity.
+
+Every Worker has two Workers Builds triggers on `seahal/umaxica-apps-edge-zenith`:
+
+| Setting        | Production                            | Preview                               |
+| -------------- | ------------------------------------- | ------------------------------------- |
+| Branches       | `main`                                | every branch except `main`            |
+| Root directory | `/` (repository root)                 | `/` (repository root)                 |
+| Build command  | `pnpm --dir <tld>/apex run build`     | `pnpm --dir <tld>/apex run build`     |
+| Deploy command | `pnpm --dir <tld>/apex run deploy:ci` | `pnpm --dir <tld>/apex run upload:ci` |
+| Path includes  | `<tld>/apex/*`, `pnpm-lock.yaml`      | `<tld>/apex/*`, `pnpm-lock.yaml`      |
+
+`deploy:ci` builds and deploys the generated Vite Worker bundle.
+`upload:ci` builds and uploads a version without promoting it to production.
+Both clear `CLOUDFLARE_ENV` before Wrangler runs. Keep the repository root as
+the build root so dependency installation sees `pnpm-workspace.yaml` and
+`pnpm-lock.yaml`. Never put a token in a command or commit one to this repository.
+
+Workers Builds runs independently of GitHub Actions; a push to `main` deploys
+without waiting for the CI workflow to pass.
+
+See [Workers Builds configuration](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/).
 
 ### Environment Variables
 

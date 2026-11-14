@@ -21,7 +21,7 @@ measure() {
 }
 
 measure install pnpm install --frozen-lockfile
-measure build pnpm --filter umaxica-apps-edge-app-core run build:next
+measure build pnpm --filter umaxica-apps-edge-zenith-app-core run build:next
 measure vitest pnpm run test
 
 echo "Storage baseline written to ${report}"

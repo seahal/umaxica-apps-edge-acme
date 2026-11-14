@@ -6,6 +6,17 @@ Supersedes [ADR 024](024-retire-app-com-org-apex-units.md) Decisions 1, 2, 3
 and 5. ADR 024's body, its Outcome and
 `evidence/2026-10-01-app-com-org-apex-retirement.md` stay as history.
 
+## Configuration amendment — 2026-11-14
+
+The owner requested custom apex domains for all five Hono units and disabling
+the production workers.dev endpoint while retaining version previews. Production configs now declare
+`umaxica.{app,com,org,net,dev}` as custom domains, with `workers_dev: false`
+and `preview_urls: true`. Named development/test environments retain empty
+routes and inherit the disabled workers.dev endpoint and enabled version previews. This supersedes the
+empty-production-routes requirement below; it does not claim a completed
+Cloudflare cutover. The hostname ownership check and Tunnel/DNS conflict
+resolution described below remain required before applying the cutover.
+
 ## Context
 
 ADR 024 removed `app/apex`, `com/apex` and `org/apex` because the future

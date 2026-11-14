@@ -53,10 +53,10 @@ describe('this unit’s publishing cell', () => {
     const pkg = JSON.parse(readFileSync(resolve(unitRoot, 'package.json'), 'utf8')) as {
       name: string;
     };
-    expect(pkg.name).toBe(`umaxica-apps-edge-${PUBLISHING_AUDIENCE}-${PUBLISHING_SURFACE}`);
+    expect(pkg.name).toBe(`umaxica-apps-edge-zenith-${PUBLISHING_AUDIENCE}-${PUBLISHING_SURFACE}`);
     const wrangler = readFileSync(resolve(unitRoot, 'wrangler.jsonc'), 'utf8');
     expect(wrangler).toContain(
-      `"name": "umaxica-apps-edge-${PUBLISHING_AUDIENCE}-${PUBLISHING_SURFACE}"`,
+      `"name": "umaxica-apps-edge-zenith-${PUBLISHING_AUDIENCE}-${PUBLISHING_SURFACE}"`,
     );
   });
 });

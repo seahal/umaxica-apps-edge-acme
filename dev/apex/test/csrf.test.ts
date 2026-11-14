@@ -58,16 +58,19 @@ describe('apex CSRF config', () => {
    */
   it('accepts previews of this worker on workers.dev', () => {
     expect(
-      isAllowedApexOrigin('https://umaxica-apps-edge-dev-apex.acct.workers.dev', production),
+      isAllowedApexOrigin('https://umaxica-apps-edge-zenith-dev.acct.workers.dev', production),
     ).toBe(true);
     expect(
-      isAllowedApexOrigin('https://abc123-umaxica-apps-edge-dev-apex.acct.workers.dev', production),
+      isAllowedApexOrigin(
+        'https://abc123-umaxica-apps-edge-zenith-dev.acct.workers.dev',
+        production,
+      ),
     ).toBe(true);
     expect(
-      isAllowedApexOrigin('http://umaxica-apps-edge-dev-apex.acct.workers.dev', production),
+      isAllowedApexOrigin('http://umaxica-apps-edge-zenith-dev.acct.workers.dev', production),
     ).toBe(false);
     expect(
-      isAllowedApexOrigin('https://umaxica-apps-edge-com-apex.acct.workers.dev', production),
+      isAllowedApexOrigin('https://umaxica-apps-edge-zenith-com.acct.workers.dev', production),
     ).toBe(false);
     expect(isAllowedApexOrigin('https://preview.attacker.workers.dev', production)).toBe(false);
     expect(isAllowedApexOrigin('https://workers.dev', production)).toBe(false);

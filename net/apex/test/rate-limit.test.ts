@@ -69,25 +69,17 @@ describe('net/apex rate limiting', () => {
     expect(limiter.limit).toHaveBeenCalledWith({ key: '10.0.0.1' });
   });
 
-  // A missing `CF-Connecting-IP` must not put every such request into one shared
-  // bucket: that bucket is a bypass for the clients inside it and a denial of
-  // service against each other, since any one of them can spend it for all.
-  it('falls back to a per-path key, not one bucket shared by every caller', async () => {
+  it('cannot obtain a fresh fallback budget by changing the URL', async () => {
     const limiter = allows();
 
-    await checkRateLimit(request(), limiter);
+    for (const path of ['/health', '/', '/random-1', '/random-2?key=other']) {
+      await checkRateLimit(request(`http://localhost${path}`), limiter);
+    }
 
-    expect(limiter.limit).toHaveBeenCalledWith({ key: 'no-ip:/' });
-  });
-
-  it('keeps two header-less requests to different paths in different buckets', async () => {
-    const limiter = allows();
-
-    await checkRateLimit(request('http://localhost/health'), limiter);
-    await checkRateLimit(request('http://localhost/'), limiter);
-
-    expect(limiter.limit).toHaveBeenNthCalledWith(1, { key: 'no-ip:/health' });
-    expect(limiter.limit).toHaveBeenNthCalledWith(2, { key: 'no-ip:/' });
+    expect(limiter.limit).toHaveBeenCalledTimes(4);
+    for (const call of limiter.limit.mock.calls) {
+      expect(call).toEqual([{ key: 'no-ip' }]);
+    }
   });
 
   // An empty header value is as unattributable as an absent one.
@@ -96,7 +88,7 @@ describe('net/apex rate limiting', () => {
 
     await checkRateLimit(request('http://localhost/', { 'cf-connecting-ip': '' }), limiter);
 
-    expect(limiter.limit).toHaveBeenCalledWith({ key: 'no-ip:/' });
+    expect(limiter.limit).toHaveBeenCalledWith({ key: 'no-ip' });
   });
 
   // The 429 is bare on purpose: `apexSecurityHeaders` runs ahead of the limiter

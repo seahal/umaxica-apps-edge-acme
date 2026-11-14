@@ -29,7 +29,7 @@ export default defineConfig({
   // Worker (`name` in wrangler.jsonc, hyphens as underscores). Setting
   // `build.sourcemap` at the root instead would also emit maps into
   // `dist/client`, where they would be served as public static assets.
-  environments: { umaxica_apps_edge_net_apex: { build: { sourcemap: true } } },
+  environments: { umaxica_apps_edge_zenith_net: { build: { sourcemap: true } } },
   plugins: [cloudflare({ inspectorPort: 9201 }), tailwindcss()],
   server: { allowedHosts: ['umaxica.net'] },
 });

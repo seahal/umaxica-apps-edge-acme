@@ -48,16 +48,16 @@ describe('apex deployment units', () => {
     for (const unit of Object.keys(APEX)) expect(listed.filter((u) => u === unit)).toHaveLength(1);
   });
 
-  it('own their dev port, Worker name and allowed host, with no route', () => {
+  it('own their dev port, Worker name and allowed host, with a production custom domain', () => {
     for (const [unit, { port, host }] of Object.entries(APEX)) {
       expect(existsSync(join(repoRoot, unit, 'package.json')), unit).toBe(true);
       expect(read(`${unit}/package.json`)).toContain(`vite dev --port ${port} `);
       expect(read(`${unit}/vite.config.ts`)).toContain(`allowedHosts: ['${host}']`);
       const config = parseJsonc(read(`${unit}/wrangler.jsonc`));
-      expect(config.name).toBe(`umaxica-apps-edge-${unit.replace('/', '-')}`);
-      // ADR 027: the apex hostnames stay with the Tunnel until an operator
-      // moves them. A route here would claim a hostname from the repository.
-      expect(config.routes, unit).toEqual([]);
+      expect(config.name).toBe(`umaxica-apps-edge-zenith-${unit.split('/')[0]}`);
+      expect(config.routes, unit).toEqual([{ pattern: host, custom_domain: true }]);
+      expect(config.workers_dev, unit).toBe(false);
+      expect(config.preview_urls, unit).toBe(true);
       for (const env of Object.values(config.env ?? {}) as { routes?: unknown }[]) {
         expect(env.routes, unit).toEqual([]);
       }

@@ -10,7 +10,7 @@ import { CANONICAL_ORIGIN } from './canonical';
 export const CORE_PUBLIC_HOST = new URL(CANONICAL_ORIGIN).hostname;
 export const CORE_ALTERNATE_HOST = CORE_PUBLIC_HOST.replace(/^jp\./u, 'us.');
 const brandTld = CORE_PUBLIC_HOST.slice(CORE_PUBLIC_HOST.lastIndexOf('.') + 1);
-export const CORE_WORKER_NAME = `umaxica-apps-edge-${brandTld}-core`;
+export const CORE_WORKER_NAME = `umaxica-apps-edge-zenith-${brandTld}-core`;
 
 const WORKERS_DEV_HOST_PATTERN = new RegExp(
   `^${CORE_WORKER_NAME}[.][a-z0-9-]+[.]workers[.]dev$`,

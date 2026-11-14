@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "umaxica-apps-edge-app-apex",
+  "name": "umaxica-apps-edge-zenith-app",
   "keep_vars": true,
   "compatibility_date": "2026-10-06",
   "compatibility_flags": ["nodejs_als"],
@@ -21,9 +21,8 @@
   "version_metadata": {
     "binding": "CF_VERSION_METADATA"
   },
-  // Keep the production Worker reachable without reclaiming the apex custom
-  // domain from the development Tunnel.
-  "workers_dev": true,
+  // Use the custom domain for production; retain version preview URLs.
+  "workers_dev": false,
   "preview_urls": true,
   "upload_source_maps": true,
   "observability": {
@@ -55,10 +54,8 @@
     "EDGE_ENV": "production",
     "BRAND_NAME": "UMAXICA"
   },
-  // Empty on purpose: the apex hostname is owned by the development Tunnel, which
-  // cannot share it with a custom domain — see adr/008-edge-development-tunnel-exposure.md.
-  // Named environments inherit this key, so they pin `"routes": []` too.
-  "routes": [],
+  // Production owns the public apex. Named environments pin empty routes.
+  "routes": [{ "pattern": "umaxica.app", "custom_domain": true }],
 
   "env": {
     "development": {

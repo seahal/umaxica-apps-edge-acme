@@ -7,14 +7,14 @@ repository and is not covered by this policy.
 ## Reporting a vulnerability
 
 **Use [GitHub private vulnerability
-reporting](https://github.com/seahal/umaxica-apps-edge/security/advisories/new).**
+reporting](https://github.com/seahal/umaxica-apps-edge-zenith/security/advisories/new).**
 The report is visible only to the maintainer, and the fix and the published
 advisory are coordinated in that same thread. It is the right channel even if
 you are unsure whether what you found is exploitable.
 
 For hardening suggestions, questions about this policy, and anything that is
 not yet a vulnerability, [open an
-issue](https://github.com/seahal/umaxica-apps-edge/issues). Issues are public:
+issue](https://github.com/seahal/umaxica-apps-edge-zenith/issues). Issues are public:
 do not put reproduction steps or a working exploit for an unfixed problem
 there.
 

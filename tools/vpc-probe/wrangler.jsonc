@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
-  "name": "umaxica-apps-edge-vpc-probe",
+  "name": "umaxica-apps-edge-zenith-vpc-probe",
   "main": "probe.mjs",
   "compatibility_date": "2026-10-06",
   "compatibility_flags": ["nodejs_compat"],

@@ -60,7 +60,7 @@ improper` while naming neither container.
 
 Both causes were removed rather than papered over. `userns_mode: keep-id:uid=1000,gid=1000`
 pins the in-container id, so the host id no longer needs to be discovered, and every compose
-file sets the same `name: umaxica-apps-edge`, so no new project name can appear for this
+file sets the same `name: umaxica-apps-edge-zenith`, so no new project name can appear for this
 folder.
 
 `devcontainer.json` lists `../compose.yaml` and `./compose.yaml` — the shared services and
