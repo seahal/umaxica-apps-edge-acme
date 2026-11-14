@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "umaxica-apps-edge-zenith-dev-apex",
+  "name": "umaxica-apps-edge-zenith-dev",
   "keep_vars": true,
   "compatibility_date": "2026-10-06",
   "compatibility_flags": ["nodejs_als"],

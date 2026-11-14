@@ -614,6 +614,34 @@ Notes:
   both commands above. Watch the build configuration's root directory too — a
   one-letter typo there has broken every build on a branch before.
 
+### Zenith GitHub continuous deployment
+
+Each apex unit `<tld>/apex` (`app`, `com`, `org`, `net`, `dev`) deploys to the
+Cloudflare Worker `umaxica-apps-edge-zenith-<tld>`, set by `name` in
+`<tld>/apex/wrangler.jsonc`. Workspace package names keep their `-apex` suffix;
+package identity is independent of Worker identity.
+
+Every Worker has two Workers Builds triggers on `seahal/umaxica-apps-edge-zenith`:
+
+| Setting        | Production                            | Preview                               |
+| -------------- | ------------------------------------- | ------------------------------------- |
+| Branches       | `main`                                | every branch except `main`            |
+| Root directory | `/` (repository root)                 | `/` (repository root)                 |
+| Build command  | `pnpm --dir <tld>/apex run build`     | `pnpm --dir <tld>/apex run build`     |
+| Deploy command | `pnpm --dir <tld>/apex run deploy:ci` | `pnpm --dir <tld>/apex run upload:ci` |
+| Path includes  | `<tld>/apex/*`, `pnpm-lock.yaml`      | `<tld>/apex/*`, `pnpm-lock.yaml`      |
+
+`deploy:ci` builds and deploys the generated Vite Worker bundle.
+`upload:ci` builds and uploads a version without promoting it to production.
+Both clear `CLOUDFLARE_ENV` before Wrangler runs. Keep the repository root as
+the build root so dependency installation sees `pnpm-workspace.yaml` and
+`pnpm-lock.yaml`. Never put a token in a command or commit one to this repository.
+
+Workers Builds runs independently of GitHub Actions; a push to `main` deploys
+without waiting for the CI workflow to pass.
+
+See [Workers Builds configuration](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/).
+
 ### Environment Variables
 
 Cloudflare workspaces use `wrangler.jsonc` (`vars` + environments).

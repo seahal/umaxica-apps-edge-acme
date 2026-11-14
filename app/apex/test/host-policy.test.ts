@@ -16,6 +16,11 @@ describe('apex Host policy', () => {
     expect(isAllowedApexHost(APEX_PUBLIC_HOST.toUpperCase(), { allowLocalhost: false })).toBe(true);
     expect(isAllowedApexHost(APEX_PREVIEW_HOST, { allowLocalhost: false })).toBe(true);
     expect(
+      isAllowedApexHost('umaxica-apps-edge-zenith-app.umaxica.workers.dev', {
+        allowLocalhost: false,
+      }),
+    ).toBe(true);
+    expect(
       isAllowedApexHost(`version-${APEX_WORKER_NAME}.account.workers.dev`, {
         allowLocalhost: false,
       }),
@@ -35,6 +40,8 @@ describe('apex Host policy', () => {
       `${APEX_PUBLIC_HOST}.evil.example`,
       `umaxica-apps-edge-zenith-other-apex.account.workers.dev`,
       `umaxica-apps-edge-zenith-other-${APEX_WORKER_NAME}.account.workers.dev`,
+      'umaxica-apps-edge-app-apex.umaxica.workers.dev',
+      'umaxica-apps-edge-zenith-app-apex.umaxica.workers.dev',
       'workers.dev',
       'account.workers.dev',
       '',

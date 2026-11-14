@@ -54,7 +54,7 @@ describe('apex deployment units', () => {
       expect(read(`${unit}/package.json`)).toContain(`vite dev --port ${port} `);
       expect(read(`${unit}/vite.config.ts`)).toContain(`allowedHosts: ['${host}']`);
       const config = parseJsonc(read(`${unit}/wrangler.jsonc`));
-      expect(config.name).toBe(`umaxica-apps-edge-zenith-${unit.replace('/', '-')}`);
+      expect(config.name).toBe(`umaxica-apps-edge-zenith-${unit.split('/')[0]}`);
       expect(config.routes, unit).toEqual([{ pattern: host, custom_domain: true }]);
       expect(config.workers_dev, unit).toBe(false);
       expect(config.preview_urls, unit).toBe(true);

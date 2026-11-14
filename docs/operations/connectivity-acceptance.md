@@ -42,12 +42,12 @@ served by its own Worker. `/health.json` no longer exists (ADR 017) and the heal
 carries no brand, so the script reads the canonical URL of `/about`, which each Worker renders
 from its own brand:
 
-| Hostname      | Expected Worker                     | `/about` canonical          |
-| ------------- | ----------------------------------- | --------------------------- |
-| `umaxica.com` | `umaxica-apps-edge-zenith-com-apex` | `https://umaxica.com/about` |
-| `umaxica.net` | `umaxica-apps-edge-zenith-net-apex` | `https://umaxica.net/about` |
-| `umaxica.org` | `umaxica-apps-edge-zenith-org-apex` | `https://umaxica.org/about` |
-| `umaxica.app` | `umaxica-apps-edge-zenith-app-apex` | `https://umaxica.app/about` |
+| Hostname      | Expected Worker                | `/about` canonical          |
+| ------------- | ------------------------------ | --------------------------- |
+| `umaxica.com` | `umaxica-apps-edge-zenith-com` | `https://umaxica.com/about` |
+| `umaxica.net` | `umaxica-apps-edge-zenith-net` | `https://umaxica.net/about` |
+| `umaxica.org` | `umaxica-apps-edge-zenith-org` | `https://umaxica.org/about` |
+| `umaxica.app` | `umaxica-apps-edge-zenith-app` | `https://umaxica.app/about` |
 
 The app/com/org rows FAIL until their hostnames are cut over to these Workers (ADR 027).
 
